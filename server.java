@@ -1,1 +1,1 @@
-# The server of ViceChat
+// The server of ViceChat
