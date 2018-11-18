@@ -32,7 +32,7 @@ public class ServidorChat{
 			ServerSocket socketServicio = new ServerSocket(Integer.parseInt(args[0]));
 			do {
 				Socket socketCliente = socketServicio.accept();
-				hebraChat = new HebraChat(socketCliente);
+				hebraChat = new HebraChat(socketCliente, servidorChat.getControladorChat());
 				controladorChat.aniadirNuevaConexion(hebraChat);
 				hebraChat.start();
 			} while(true);

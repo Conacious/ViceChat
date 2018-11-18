@@ -13,17 +13,54 @@ public class HebraChat extends Thread {
 	private ControladorChat controladorChat;
 	private Socket conexionCliente;
 	private PrintWriter outputStream; 
-	private BufferedReader inputStream; 
+	private BufferedReader inputStream;
+
 	private String nickname;
 
-	public HebraChat(Socket conCliente) throws IOException{
+
+	public String getNickname(){
+		return nickname;
+	}
+
+
+	public HebraChat(Socket conCliente, ControladorChat controladorChat) throws IOException{
 		conexionCliente = conCliente;
 		outputStream = new PrintWriter(conexionCliente.getOutputStream(),true);
 		inputStream = new BufferedReader( new InputStreamReader(conexionCliente.getInputStream()));
+		this.controladorChat = controladorChat;
 	}
 
 	public void run(){
-		byte []buferEnvio = "eh".getBytes();
+		String mensajeProtocolo = "";
+		String[] mensajeContenido = {""};
+		String protocolo = "";
+		try{
+			do{
+				mensajeProtocolo = inputStream.readLine();
+				String[] contenido = mensajeProtocolo.split("#");
+
+				switch(contenido[0]){
+					case ViceChatProtocolo.VICE_CONN:
+						String nombresSalas = ViceChatProtocolo.VICE_SHOW_ROOMS;
+						nickname = contenido[1];
+						//System.out.println(nombresSalas);
+						nombresSalas += controladorChat.getSalasDisponibles();
+						outputStream.println(nombresSalas);
+						break;
+
+				}
+
+			}while(true);
+		}catch(IOException e){
+
+		}
+	}
+}
+
+
+
+
+	/*	byte []buferEnvio = "eh".getBytes();
 		byte []buferRecepcion=new byte[256];
 		int bytesLeidos=0;
 		try{
@@ -35,5 +72,4 @@ public class HebraChat extends Thread {
 		}catch(Exception e){
 			System.err.println("Err: " + e);
 		}
-	}
-}
+	}*/

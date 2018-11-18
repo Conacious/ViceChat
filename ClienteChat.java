@@ -19,8 +19,9 @@ public class ClienteChat{
 			conexionCliente = new Socket("localhost", 8888);
 			PrintWriter outPrinter = new PrintWriter(conexionCliente.getOutputStream(),true);
 			BufferedReader inputStream = new BufferedReader( new InputStreamReader(conexionCliente.getInputStream()));
+
 			while((recibido = inputStream.readLine()) != null){
-				System.out.println(recibido);
+		
 			}
 
 			conexionCliente.close();
