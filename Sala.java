@@ -19,4 +19,16 @@ public class Sala{
 		return identificadorSala;	
 	}
 
+	public void aniadirUsuarioASala(HebraChat usuario){
+		usuariosSala.add(usuario);
+	}
+
+	public void borrarUsuarioSala(HebraChat usuario){
+		usuariosSala.remove(usuario);
+	}
+
+	public int getNumeroUsuarios(){
+		return usuariosSala.size();
+	}
+
 }

@@ -16,10 +16,15 @@ public class HebraChat extends Thread {
 	private BufferedReader inputStream;
 
 	private String nickname;
+	private String salaActual;
 
 
 	public String getNickname(){
 		return nickname;
+	}
+
+		public PrintWriter getOutputStream(){
+		return outputStream;
 	}
 
 
@@ -28,6 +33,7 @@ public class HebraChat extends Thread {
 		outputStream = new PrintWriter(conexionCliente.getOutputStream(),true);
 		inputStream = new BufferedReader( new InputStreamReader(conexionCliente.getInputStream()));
 		this.controladorChat = controladorChat;
+		salaActual = null;
 	}
 
 	public void run(){
@@ -37,39 +43,43 @@ public class HebraChat extends Thread {
 		try{
 			do{
 				mensajeProtocolo = inputStream.readLine();
-				String[] contenido = mensajeProtocolo.split("#");
-
-				switch(contenido[0]){
-					case ViceChatProtocolo.VICE_CONN:
-						String nombresSalas = ViceChatProtocolo.VICE_SHOW_ROOMS;
-						nickname = contenido[1];
-						//System.out.println(nombresSalas);
-						nombresSalas += controladorChat.getSalasDisponibles();
-						outputStream.println(nombresSalas);
-						break;
-
+				if(mensajeProtocolo != null){
+					String[] contenido = mensajeProtocolo.split("#");
+					switch(contenido[0]){
+						case ViceChatProtocolo.VICE_CONN:
+							String nombresSalas = ViceChatProtocolo.VICE_SHOW_ROOMS;
+							nickname = contenido[1];
+							nombresSalas += controladorChat.getSalasDisponibles();
+							outputStream.println(nombresSalas);
+							break;
+						case ViceChatProtocolo.VICE_ENTER_ROOM:
+							String nombreSala = contenido[1];
+							System.out.println(contenido[1]);
+							String listaUsuarios = ViceChatProtocolo.VICE_ENTER_ROOM + "#";
+							String[] usuariosSala = controladorChat.getUsuariosSala(nombreSala);
+							salaActual = nombreSala;
+							controladorChat.aniadirASala(this, nombreSala);
+							if(usuariosSala != null)
+								for(String usuario : usuariosSala){
+									listaUsuarios += usuario + "#";
+									System.out.println(usuario);
+								}
+							outputStream.println(listaUsuarios);
+							break;
+						case ViceChatProtocolo.VICE_LEAVE_ROOM:
+							String refrescarSalas = ViceChatProtocolo.VICE_LEAVE_ROOM + "#";
+							controladorChat.quitarUsuarioSala(salaActual, this);
+							refrescarSalas += controladorChat.getSalasDisponibles();
+							outputStream.println(refrescarSalas);
+							break;
+						case ViceChatProtocolo.VICE_MSG:
+							controladorChat.mandarMensajeSala(salaActual, this, contenido[1]);
+							break;
+					}
 				}
-
 			}while(true);
 		}catch(IOException e){
-
+			System.out.println("Error de lectura/escritura.");
 		}
 	}
 }
-
-
-
-
-	/*	byte []buferEnvio = "eh".getBytes();
-		byte []buferRecepcion=new byte[256];
-		int bytesLeidos=0;
-		try{
-			for(int i=-1; i < 5; i++){
-				outputStream.println("eh");
-				Thread.sleep(3000);
-			}
-			conexionCliente.close();
-		}catch(Exception e){
-			System.err.println("Err: " + e);
-		}
-	}*/
