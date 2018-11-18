@@ -1,33 +1,31 @@
 import java.util.ArrayList;
 
-public class Sala{
+public class Sala {
 
 	private String identificadorSala;
 	private ArrayList<HebraChat> usuariosSala = new ArrayList();
 
-
-	public Sala(String nombre){
+	public Sala(String nombre) {
 		identificadorSala = nombre;
 	}
 
-
-	public ArrayList<HebraChat> getUsuariosSala(){
+	public ArrayList<HebraChat> getUsuariosSala() {
 		return usuariosSala;
 	}
 
-	public String getIdentificadorSala(){
-		return identificadorSala;	
+	public String getIdentificadorSala() {
+		return identificadorSala;
 	}
 
-	public void aniadirUsuarioASala(HebraChat usuario){
+	public void aniadirUsuarioASala(HebraChat usuario) {
 		usuariosSala.add(usuario);
 	}
 
-	public void borrarUsuarioSala(HebraChat usuario){
+	public void borrarUsuarioSala(HebraChat usuario) {
 		usuariosSala.remove(usuario);
 	}
 
-	public int getNumeroUsuarios(){
+	public int getNumeroUsuarios() {
 		return usuariosSala.size();
 	}
 
