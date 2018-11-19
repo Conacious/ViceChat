@@ -18,7 +18,17 @@ public class ClienteChat {
 	private BufferedReader inputStream;
 	private HebritaClienteChat escuchaServidor;
 
+
+	public void infoError(){
+
+		System.out.println("Comando inválido. A continuación se muestran los posibles comandos");
+
+		getInfoChat();
+
+	}
+
 	public void getInfoChat() {
+		System.out.println("---------------------------------------------------------------------------------------");
 
 		System.out.println("Bienvenido a ViceChat. A continuación se muestran las diferentes opciones");
 		System.out.println("Entrar sala existente: 	E-NombreSala");
@@ -26,6 +36,8 @@ public class ClienteChat {
 		System.out.println("Enviar mensaje a la sala: M-MensajeAEnviar");
 		System.out.println("Listar usuarios en la sala: L-NombreSala");
 		System.out.println("Salir de la aplicación: C");
+
+		System.out.println("---------------------------------------------------------------------------------------");
 
 		/*
 		 * String infoChat = ""; infoChat +=
@@ -71,7 +83,7 @@ public class ClienteChat {
 				salir = true;
 				break;
 			case ViceChatOpciones.MENSAJE:
-				mensajeAEnviar = ViceChatProtocolo.VICE_MSG + "#" + mensaje[1];
+				mensajeAEnviar = ViceChatProtocolo.VICE_MSG + "#" + nickname + "#" + mensaje[1];
 				envioMensajeServidor(mensajeAEnviar);
 				break;
 			case ViceChatOpciones.LISTA_USUARIOS:
@@ -88,7 +100,10 @@ public class ClienteChat {
 				}
 				envioMensajeServidor(mensajeAEnviar);
 				break;
-
+			default:
+				mensajeAEnviar = ViceChatProtocolo.VICE_INFO + "#";
+				envioMensajeServidor(mensajeAEnviar);
+			break;
 			}
 		} while (!salir);
 		

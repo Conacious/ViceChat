@@ -80,7 +80,7 @@ public class HebraChat extends Thread {
 
 						break;
 					case ViceChatProtocolo.VICE_MSG:
-						controladorChat.mandarMensajeSala(salaActual, this, contenido[1]);
+						controladorChat.mandarMensajeSala(salaActual, this, contenido[1] + ": " + contenido[2]);
 						break;
 					case ViceChatProtocolo.VICE_SHOW_USER:
 						String listaUsers = ViceChatProtocolo.VICE_ENTER_ROOM + "#";
@@ -94,7 +94,12 @@ public class HebraChat extends Thread {
 							}
 						outputStream.println(listaUsers);
 						break;
+
+					case ViceChatProtocolo.VICE_INFO:
+							outputStream.println((ViceChatProtocolo.VICE_INFO + "#"));
+					break;
 					}
+
 				}
 			} while (true);
 		} catch (IOException e) {

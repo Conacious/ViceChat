@@ -14,6 +14,8 @@ public class ControladorChat {
 		salasDisponibles.add(salaAuxiliar);
 		salaAuxiliar = new Sala("Etsiit");
 		salasDisponibles.add(salaAuxiliar);
+		salaAuxiliar = new Sala("Amigos");
+		salasDisponibles.add(salaAuxiliar);
 
 	}
 

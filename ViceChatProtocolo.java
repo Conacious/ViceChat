@@ -6,4 +6,5 @@ public class ViceChatProtocolo{
 	public static final String VICE_SHOW_USER = "VICE_SHOW_USER";
 	public static final String VICE_MSG = "VICE_MSG";
 	public static final String VICE_CLOSE = "VICE_CLOSE";
+	public static final String VICE_INFO = "VICE_INFO";
 }

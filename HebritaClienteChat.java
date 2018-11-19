@@ -75,6 +75,11 @@ public class HebritaClienteChat extends Thread {
 					case ViceChatProtocolo.VICE_CLOSE:
 						System.out.println("Hasta luego");
 					break;
+
+					case ViceChatProtocolo.VICE_INFO:
+						clearScreen();
+						clienteHebra.infoError();
+					break;
 					}
 				}
 			} while (true);
