@@ -76,9 +76,9 @@ public class ClienteChat {
 				break;
 			case ViceChatOpciones.LISTA_USUARIOS:
 				mensajeAEnviar = ViceChatProtocolo.VICE_SHOW_USER + "#";
-				if(mensaje.length > 1){
+				/*if(mensaje.length > 1){
 					mensajeAEnviar += mensaje[1];
-				}
+				}*/
 				envioMensajeServidor(mensajeAEnviar);
 				break;
 			case ViceChatOpciones.SALIR_SALA:

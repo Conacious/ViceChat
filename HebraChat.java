@@ -86,7 +86,7 @@ public class HebraChat extends Thread {
 						String listaUsers = ViceChatProtocolo.VICE_ENTER_ROOM + "#";
 						String[] usuariosSa = controladorChat.getUsuariosSala(salaActual);
 
-						controladorChat.aniadirASala(this, salaActual);
+						//controladorChat.aniadirASala(this, salaActual);
 						if (usuariosSa != null)
 							for (String usuario : usuariosSa) {
 								listaUsers += usuario + "#";
