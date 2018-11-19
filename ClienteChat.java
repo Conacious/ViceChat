@@ -17,7 +17,15 @@ public class ClienteChat {
 	private PrintWriter outputStream;
 	private BufferedReader inputStream;
 	private HebritaClienteChat escuchaServidor;
+	private boolean finChat = false;
 
+	public boolean getFinChat(){
+		return finChat;
+	}
+
+	/*public Socket getConexionCliente(){
+		return conexionCliente;
+	*/
 
 	public void infoError(){
 
@@ -65,7 +73,6 @@ public class ClienteChat {
 		String[] mensaje = { "" };
 		String codigoMensaje = "";
 		String mensajeAEnviar = "";
-		boolean salir = false;
 
 		do {
 			scanner = new Scanner(System.in);
@@ -80,7 +87,7 @@ public class ClienteChat {
 				envioMensajeServidor(mensajeAEnviar);
 				break;
 			case ViceChatOpciones.SALIR:
-				salir = true;
+				finChat = true;
 				break;
 			case ViceChatOpciones.MENSAJE:
 				mensajeAEnviar = ViceChatProtocolo.VICE_MSG + "#" + nickname + "#" + mensaje[1];
@@ -105,7 +112,7 @@ public class ClienteChat {
 				envioMensajeServidor(mensajeAEnviar);
 			break;
 			}
-		} while (!salir);
+		} while(!finChat);
 		
 	}
 
@@ -133,6 +140,11 @@ public class ClienteChat {
 				cliente.outputStream.println(ViceChatProtocolo.VICE_CONN + "#" + cliente.nickname);
 				cliente.procesamientoEntradaUsuario();
 				cliente.conexionCliente.close();
+				try{
+					hebraEscuchaServidor.join();
+				}catch(InterruptedException e){
+					System.out.println(e);
+				}
 			} catch (IOException e) {
 				System.err.println("Error al conectar.");
 			}
