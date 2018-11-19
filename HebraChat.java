@@ -72,8 +72,10 @@ public class HebraChat extends Thread {
 						 * controladorChat.quitarUsuarioSala(salaActual, this); refrescarSalas +=
 						 * controladorChat.getSalasDisponibles(); outputStream.println(refrescarSalas);
 						 */
+
 						String salass = ViceChatProtocolo.VICE_SHOW_ROOMS;
 						salass += controladorChat.getSalasDisponibles();
+						controladorChat.quitarUsuarioSala(salaActual, this);
 						outputStream.println(salass);
 
 						break;

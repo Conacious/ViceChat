@@ -61,7 +61,7 @@ public class ClienteChat {
 			mensaje = entrada.split("-");
 			codigoMensaje = mensaje[0];
 
-			System.out.println(codigoMensaje);
+			//System.out.println(codigoMensaje);
 			switch (codigoMensaje) {
 			case ViceChatOpciones.ELEGIR_SALA:
 				mensajeAEnviar = ViceChatProtocolo.VICE_ENTER_ROOM + "#" + mensaje[1];

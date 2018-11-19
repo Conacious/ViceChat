@@ -5,6 +5,11 @@ public class HebritaClienteChat extends Thread {
 
 	private ClienteChat clienteHebra;
 
+	public static void clearScreen() {  
+		System.out.print("\033[H\033[2J");  
+		System.out.flush();  
+	} 
+
 	public HebritaClienteChat(ClienteChat cliente) {
 		clienteHebra = cliente;
 	}
@@ -18,6 +23,7 @@ public class HebritaClienteChat extends Thread {
 					String[] contenido = mensajeProtocolo.split("#");
 					switch (contenido[0]) {
 					case ViceChatProtocolo.VICE_SHOW_ROOMS:
+						clearScreen();
 						System.out.println("------------------------");
 						for (int i = 1; i < contenido.length; i++) {
 							System.out.println(contenido[i]);
@@ -25,7 +31,7 @@ public class HebritaClienteChat extends Thread {
 						System.out.println("------------------------");
 						break;
 					case ViceChatProtocolo.VICE_ENTER_ROOM:
-						// Runtime.getRuntime().exec("clear");
+						clearScreen();
 						if (contenido.length > 1) {
 							System.out.println("**USUARIOS EN LA SALA**");
 
@@ -39,6 +45,7 @@ public class HebritaClienteChat extends Thread {
 						}
 						break;
 					case ViceChatProtocolo.VICE_LEAVE_ROOM:
+						clearScreen();
 						System.out.println("Ya no estás en ninguna sala. Salas disponibles:");
 						System.out.println("------------------------");
 						for (int i = 1; i < contenido.length; i++) {
@@ -47,11 +54,11 @@ public class HebritaClienteChat extends Thread {
 						System.out.println("------------------------");
 						break;
 					case ViceChatProtocolo.VICE_MSG:
-						System.out.println("------------------------");
+						//System.out.println("------------------------");
 						for (int i = 1; i < contenido.length; i++) {
 							System.out.print(contenido[i]);
 						}
-						System.out.println("------------------------");
+						//System.out.println("------------------------");
 						break;
 					case ViceChatProtocolo.VICE_SHOW_USER:
 						if (contenido.length > 1) {
